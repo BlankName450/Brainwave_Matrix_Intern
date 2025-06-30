@@ -96,7 +96,9 @@ async function loadRecipe() {
 }
 
 // Run on page load
-loadRecipe();
+if (document.querySelector('.recipe-detail')) {
+  loadRecipe();
+}
 
 // 1. Use spinner for loading
 function showSpinner(container) {
@@ -254,7 +256,18 @@ if (window.location.pathname.endsWith("index.html") || window.location.pathname.
       });
       // Render
       ordered.forEach(cat => {
-        let img = cat.strCategoryThumb;
+        let img;
+        switch (cat.strCategory.toLowerCase()) {
+          case 'breakfast': img = 'breakfast.png'; break;
+          case 'beef': img = 'beef.png'; break;
+          case 'chicken': img = 'chicken.png'; break;
+          case 'chocolate': img = 'chocolate.png'; break;
+          case 'dessert': img = 'dessert.png'; break;
+          case 'vegan': img = 'vegan.png'; break;
+          case 'egyptian meals': img = 'Egyptian.png'; break;
+          // add more custom mappings as needed
+          default: img = cat.strCategoryThumb; break;
+        }
         let href = `category.html?c=${encodeURIComponent(cat.strCategory)}`;
         if (cat.strCategory.toLowerCase() === 'breakfast') img = 'breakfast.png';
         if (cat.strCategory.toLowerCase() === 'goat') img = 'beef.png';
@@ -268,7 +281,7 @@ if (window.location.pathname.endsWith("index.html") || window.location.pathname.
         card.href = href;
         card.innerHTML = `
           <h4>${cat.strCategory}</h4>
-          <img src="${img}" alt="${cat.strCategory}">
+          <img src="${img}" alt="${cat.strCategory}" onerror="this.onerror=null;this.src='default.png';">
         `;
         catContainer.appendChild(card);
       });
