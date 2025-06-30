@@ -18,15 +18,16 @@
               <rect y="30" width="100" height="15"></rect>
               <rect y="60" width="100" height="15"></rect>
             </svg>
-          </div>
-            <nav class="navigation-row">
+        </div>
+        <nav class="navigation-row">
             <ul class="primary-links-row">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#categories">Categories</a></li>
                 <li><a href="#recipes">Recipes</a></li>
                 <li><a href="#about">About Us</a></li>
             </ul>
-            </nav>
+        </nav>
+        <div class="menu-overlay" onclick="ToggleMenu()"></div>
     </header>
     <!-- End Nav -->
      
@@ -52,35 +53,16 @@
             <h2>Categories</h2>
         </div>
         <br>
-        <div class="category-cards">
-            <a href="#" class="cat-card">
-                <h4>BreakFast</h4>
-                <img src="breakfast.png">
-            </a>
-            <a href="#" class="cat-card">
-                <h4>Vegan</h4>
-                <img src="vegan.png">
-            </a>
-            <a href="#" class="cat-card">
-                <h4>Beef</h4>
-                <img src="beef.png">
-            </a>
-            <a href="#" class="cat-card">
-                <h4>Chicken</h4>
-                <img src="chicken.png">
-            </a>
-            <a href="#" class="cat-card">
-                <h4>Dessert</h4>
-                <img src="dessert.png">
-            </a>
-            
-            <a href="#" class="cat-card">
-                <h4>Chocolate</h4>
-                <img src="chocolate.png">
-            </a>
-        </div>
+        <div id="category-cards" class="category-cards"></div>
      </section>
      <!-- End Category -->
+     <!-- Search bar between categories and recipes -->
+     <div class="search-container responsive-search">
+         <span class="search-icon">🔍</span>
+         <input class="search-bar" type="text" placeholder="Search recipes..." />
+         <button class="search-btn" aria-label="Search" type="button" tabindex="0">🔍</button>
+         <div class="search-suggestions"></div>
+     </div>
      <!-- Recipes  -->
      <section id="recipes" class="recipes-container">
         <h1>Simple and Tasty Recipes</h1>
@@ -88,130 +70,7 @@
           Discover a world of flavor with our collection of simple and tasty recipes that anyone can make at home. From quick weeknight dinners to hearty comfort food, each dish is crafted to bring joy to your table without the hassle. Whether you're a beginner in the kitchen or a seasoned cook, you'll find easy-to-follow steps and wholesome ingredients that make cooking a pleasure.
         </p>
       
-        <div class="recipe-cards">
-            <div class="recipe-cards-row">
-              <div class="recipe-card">
-                <img src="garlic.jpg" alt="Creamy Garlic Chicken Pasta">
-                <div class="recipe-content">
-                  <h3>Creamy Garlic Chicken Pasta</h3>
-                  <div class="info">
-                    <p><strong>Dish Type:</strong> Main Course</p>
-                    <p><strong>Cuisine:</strong> Italian-inspired comfort food</p>
-                    <p><strong>Flavor Profile:</strong> Rich, savory, garlicky with creamy umami depth</p>
-                  </div>
-                  <a href="recipe.html?name=creamy-chicken-pasta" class="recipes-btn">View Recipe</a>
-                </div>
-              </div>
-          
-              <div class="recipe-card">
-                <img src="tacos.jpg" alt="Street-Style Spicy Beef Tacos">
-                <div class="recipe-content">
-                  <h3>Street-Style Spicy Beef Tacos</h3>
-                  <div class="info">
-                    <p><strong>Dish Type:</strong> Main or Snack</p>
-                    <p><strong>Cuisine:</strong> Mexican-inspired</p>
-                    <p><strong>Flavor Profile:</strong> Smoky, spicy, savory with crunchy and fresh textures</p>
-                  </div>
-                  <a href="recipe.html?name=beef-tacos" class="recipes-btn">View Recipe</a>
-                </div>
-              </div>
-          
-              <div class="recipe-card">
-                <img src="salad.jpg" alt="Avocado & Quinoa Power Salad">
-                <div class="recipe-content">
-                  <h3>Avocado & Quinoa Power Salad</h3>
-                  <div class="info">
-                    <p><strong>Dish Type:</strong> Salad / Light Lunch</p>
-                    <p><strong>Cuisine:</strong> Modern Healthy</p>
-                    <p><strong>Flavor Profile:</strong> Fresh, nutty, citrusy, and creamy</p>
-                  </div>
-                  <a href="recipe.html?name=avocado-quinoa-salad" class="recipes-btn">View Recipe</a>
-                </div>
-              </div>
-            </div>
-          
-            <div class="recipe-cards-row">
-              <div class="recipe-card">
-                <img src="Wings.jpg" alt="Baked Honey Garlic Chicken Wings">
-                <div class="recipe-content">
-                  <h3>Baked Honey Garlic Chicken Wings</h3>
-                  <div class="info">
-                    <p><strong>Dish Type:</strong> Appetizer / Party Food</p>
-                    <p><strong>Cuisine:</strong> American / Asian Fusion</p>
-                    <p><strong>Flavor Profile:</strong> Sweet, sticky, garlicky, with a hint of heat</p>
-                  </div>
-                  <a href="recipe.html?name=honey-garlic-wings" class="recipes-btn">View Recipe</a>
-                </div>
-              </div>
-          
-              <div class="recipe-card">
-                <img src="tikka.jpg" alt="Classic Chickpea Tikka Masala">
-                <div class="recipe-content">
-                  <h3>Classic Chickpea Tikka Masala</h3>
-                  <div class="info">
-                    <p><strong>Dish Type:</strong> Main Course (Vegetarian)</p>
-                    <p><strong>Cuisine:</strong> Indian</p>
-                    <p><strong>Flavor Profile:</strong> Creamy, spiced, aromatic, and bold</p>
-                  </div>
-                  <a href="recipe.html?name=chickpea-tikka-masala" class="recipes-btn">View Recipe</a>
-                </div>
-              </div>
-          
-              <div class="recipe-card">
-                <img src="halloumi.jpg" alt="Grilled Halloumi & Pesto Sandwich">
-                <div class="recipe-content">
-                  <h3>Grilled Halloumi & Pesto Sandwich</h3>
-                  <div class="info">
-                    <p><strong>Dish Type:</strong> Brunch / Gourmet Sandwich</p>
-                    <p><strong>Cuisine:</strong> Mediterranean</p>
-                    <p><strong>Flavor Profile:</strong> Salty, herbaceous, tangy, grilled</p>
-                  </div>
-                  <a href="recipe.html?name=halloumi-pesto-sandwich" class="recipes-btn">View Recipe</a>
-                </div>
-              </div>
-            </div>
-          
-            <div class="recipe-cards-row">
-              <div class="recipe-card">
-                <img src="Miso.jpg" alt="Miso Ramen with Soft-Boiled Egg">
-                <div class="recipe-content">
-                  <h3>Miso Ramen with Soft-Boiled Egg</h3>
-                  <div class="info">
-                    <p><strong>Dish Type:</strong> Soup / Noodle Bowl</p>
-                    <p><strong>Cuisine:</strong> Japanese</p>
-                    <p><strong>Flavor Profile:</strong> Umami-rich, savory, mildly salty</p>
-                  </div>
-                  <a href="recipe.html?name=miso-ramen" class="recipes-btn">View Recipe</a>
-                </div>
-              </div>
-          
-              <div class="recipe-card">
-                <img src="Shakshuka.webp" alt="Shakshuka (Eggs in Spicy Tomato Sauce)">
-                <div class="recipe-content">
-                  <h3>Shakshuka (Eggs in Spicy Tomato Sauce)</h3>
-                  <div class="info">
-                    <p><strong>Dish Type:</strong> Breakfast / Brunch</p>
-                    <p><strong>Cuisine:</strong> Middle Eastern / North African</p>
-                    <p><strong>Flavor Profile:</strong> Tangy, spiced, herby</p>
-                  </div>
-                  <a href="recipe.html?name=shakshuka" class="recipes-btn">View Recipe</a>
-                </div>
-              </div>
-          
-              <div class="recipe-card">
-                <img src="muffins.jpg" alt="Lemon Blueberry Muffins">
-                <div class="recipe-content">
-                  <h3>Lemon Blueberry Muffins</h3>
-                  <div class="info">
-                    <p><strong>Dish Type:</strong> Dessert / Baked Goods</p>
-                    <p><strong>Cuisine:</strong> American / Bakery</p>
-                    <p><strong>Flavor Profile:</strong> Tart, sweet, moist, buttery</p>
-                  </div>
-                  <a href="recipe.html?name=blueberry-muffins" class="recipes-btn">View Recipe</a>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div id="recipes-list" class="recipe-cards"></div>
       </section>
       <!-- About Us -->
       <section id="about" class="aboutus-section">
@@ -222,7 +81,7 @@
           <div class="aboutus-content">
             <h2>About Us</h2>
             <p>
-              Welcome to <strong>DishCovery!</strong> We are passionate food lovers dedicated to helping you discover, cook, and enjoy delicious recipes from around the world. Whether you’re a beginner or a seasoned chef, our curated collection is designed to inspire creativity in your kitchen and make every meal memorable.
+              Welcome to <strong>DishCovery!</strong> We are passionate food lovers dedicated to helping you discover, cook, and enjoy delicious recipes from around the world. Whether you're a beginner or a seasoned chef, our curated collection is designed to inspire creativity in your kitchen and make every meal memorable.
             </p>
             <p>
               Our mission is to make cooking accessible, fun, and rewarding for everyone. Join our community, explore new flavors, and share your own culinary adventures with us!

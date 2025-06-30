@@ -79,4 +79,28 @@ body {
     transition: background-color 0.2s ease;
   }
   
+  body.dark-mode {
+    background-color: #232323;
+    color: #f8f8f8;
+  }
+  body.dark-mode .recipe-detail {
+    background: #181818;
+    color: #f8f8f8;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+  }
+  body.dark-mode h1#recipe-title,
+  body.dark-mode h2,
+  body.dark-mode .recipe-meta,
+  body.dark-mode ul li {
+    color: #f8f8f8;
+  }
+  body.dark-mode .back-btn {
+    background: #444;
+    color: #fff;
+  }
+  body.dark-mode .back-btn:hover {
+    background: #ff3b3b;
+    color: #fff;
+  }
+  
   
