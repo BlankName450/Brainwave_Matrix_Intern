@@ -316,6 +316,15 @@ document.addEventListener('DOMContentLoaded', function() {
   setupMobileNavAutoClose && setupMobileNavAutoClose();
   const nav = document.querySelector('.navigation-row');
   if (nav) nav.classList.remove('active');
+
+  // Always load home content on first load if on home page
+  if (
+    window.location.pathname.endsWith("index.html") ||
+    window.location.pathname.endsWith("recipes-app/")
+  ) {
+    setupRandomRecipesHome();
+    loadCategories();
+  }
 });
 
 // --- Search Bar Functionality ---
