@@ -218,16 +218,28 @@ async function loadCategories() {
     const res = await fetch('https://www.themealdb.com/api/json/v1/1/categories.php');
     const data = await res.json();
     catContainer.innerHTML = '';
+
+    // Filter out categories we don't want to display (e.g., Pork and Vegan)
     let categories = (data.categories || []).filter(cat => cat.strCategory.toLowerCase() !== 'pork');
-    const order = ['breakfast', 'beef', 'chicken', 'seafood', 'pasta'];
+    categories = categories.filter(cat => cat.strCategory.toLowerCase() !== 'vegan');
+
+    // Define the desired display order for categories
+    // This ensures the most important or relevant categories appear first
+    const order = [
+      'breakfast', 'beef', 'chicken', 'seafood', 'pasta', 'dessert',
+      'lamb', 'miscellaneous', 'side', 'starter', 'vegetarian', 'goat'
+    ];
     let ordered = [];
+    // Add categories to the ordered list based on the custom order above
     order.forEach(name => {
       const found = categories.find(cat => cat.strCategory.toLowerCase() === name);
       if (found) ordered.push(found);
     });
+
+    // Add a custom "Egyptian Meals" card after Seafood for regional focus
     const egyptianCard = {
       strCategory: 'Egyptian Meals',
-      strCategoryThumb: 'Egyptian.png',
+      strCategoryThumb: 'Egyptian.png', // Use a local image for this special card
       isArea: true
     };
     const seafoodIdx = ordered.findIndex(cat => cat.strCategory.toLowerCase() === 'seafood');
@@ -236,26 +248,28 @@ async function loadCategories() {
     } else {
       ordered.push(egyptianCard);
     }
-    // Add Pasta if not already in order
-    if (!ordered.find(cat => cat.strCategory.toLowerCase() === 'pasta')) {
-      const pasta = categories.find(cat => cat.strCategory.toLowerCase() === 'pasta');
-      if (pasta) ordered.push(pasta);
-    }
+
+    // Add any remaining categories from the API that weren't already included
     const added = new Set(ordered.map(cat => cat.strCategory));
     categories.forEach(cat => {
       if (!added.has(cat.strCategory)) ordered.push(cat);
     });
+
+    // Render each category card with the appropriate image
     ordered.forEach(cat => {
       let img;
-      switch (cat.strCategory.toLowerCase()) {
-        case 'breakfast': img = 'breakfast.png'; break;
-        case 'beef': img = 'beef.png'; break;
-        case 'chicken': img = 'chicken.png'; break;
-        case 'chocolate': img = 'chocolate.png'; break;
-        case 'dessert': img = 'dessert.png'; break;
-        case 'vegan': img = 'vegan.png'; break;
-        case 'egyptian meals': img = 'Egyptian.png'; break;
-        default: img = cat.strCategoryThumb; break;
+      // Use a custom image for Breakfast
+      if (cat.strCategory.toLowerCase() === 'breakfast') {
+        img = 'breakfast.png';
+      // Use a custom image for the Egyptian Meals card
+      } else if (cat.strCategory.toLowerCase() === 'egyptian meals') {
+        img = 'Egyptian.png';
+      // Use the Beef image for Goat (no custom Goat image available)
+      } else if (cat.strCategory.toLowerCase() === 'goat') {
+        img = 'beef.png';
+      // For all other categories, use the image provided by the API
+      } else {
+        img = cat.strCategoryThumb;
       }
       let href = `category.html?c=${encodeURIComponent(cat.strCategory)}`;
       if (cat.isArea) href = 'category.html?c=Egyptian Meals';
@@ -273,7 +287,7 @@ async function loadCategories() {
   }
 }
 
-// Hamburger menu auto-close on mobile when a nav link is clicked
+
 function setupMobileNavAutoClose() {
   const nav = document.querySelector('.navigation-row');
   const links = document.querySelectorAll('.primary-links-row a');
@@ -286,9 +300,9 @@ function setupMobileNavAutoClose() {
   });
 }
 
-// 6. On DOMContentLoaded, setup dark mode, back-to-top, etc.
+
 document.addEventListener('DOMContentLoaded', function() {
-  // Dark mode
+
   if (localStorage.getItem('darkMode') === 'true') {
     document.body.classList.add('dark-mode');
   }
@@ -298,7 +312,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const nav = document.querySelector('.navigation-row');
   if (nav) nav.classList.remove('active');
 
-  // Robust homepage check
+
   const path = window.location.pathname;
   const isHomePage =
     path === '/' ||
