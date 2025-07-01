@@ -210,72 +210,67 @@ function setupRandomRecipesHome() {
   });
 }
 
-if (window.location.pathname.endsWith("index.html") || window.location.pathname.endsWith("recipes-app/")) {
-  setupRandomRecipesHome();
-  // Dynamic category list for index.html
-  async function loadCategories() {
-    const catContainer = document.getElementById("category-cards");
-    if (!catContainer) return;
-    catContainer.innerHTML = '<p>Loading categories...</p>';
-    try {
-      const res = await fetch('https://www.themealdb.com/api/json/v1/1/categories.php');
-      const data = await res.json();
-      catContainer.innerHTML = '';
-      let categories = (data.categories || []).filter(cat => cat.strCategory.toLowerCase() !== 'pork');
-      const order = ['breakfast', 'beef', 'chicken', 'seafood', 'pasta'];
-      let ordered = [];
-      order.forEach(name => {
-        const found = categories.find(cat => cat.strCategory.toLowerCase() === name);
-        if (found) ordered.push(found);
-      });
-      const egyptianCard = {
-        strCategory: 'Egyptian Meals',
-        strCategoryThumb: 'Egyptian.png',
-        isArea: true
-      };
-      const seafoodIdx = ordered.findIndex(cat => cat.strCategory.toLowerCase() === 'seafood');
-      if (seafoodIdx !== -1) {
-        ordered.splice(seafoodIdx + 1, 0, egyptianCard);
-      } else {
-        ordered.push(egyptianCard);
-      }
-      // Add Pasta if not already in order
-      if (!ordered.find(cat => cat.strCategory.toLowerCase() === 'pasta')) {
-        const pasta = categories.find(cat => cat.strCategory.toLowerCase() === 'pasta');
-        if (pasta) ordered.push(pasta);
-      }
-      const added = new Set(ordered.map(cat => cat.strCategory));
-      categories.forEach(cat => {
-        if (!added.has(cat.strCategory)) ordered.push(cat);
-      });
-      ordered.forEach(cat => {
-        let img;
-        switch (cat.strCategory.toLowerCase()) {
-          case 'breakfast': img = 'breakfast.png'; break;
-          case 'beef': img = 'beef.png'; break;
-          case 'chicken': img = 'chicken.png'; break;
-          case 'chocolate': img = 'chocolate.png'; break;
-          case 'dessert': img = 'dessert.png'; break;
-          case 'vegan': img = 'vegan.png'; break;
-          case 'egyptian meals': img = 'Egyptian.png'; break;
-          default: img = cat.strCategoryThumb; break;
-        }
-        let href = `category.html?c=${encodeURIComponent(cat.strCategory)}`;
-        if (cat.isArea) href = 'category.html?c=Egyptian Meals';
-        const card = document.createElement('a');
-        card.className = 'cat-card';
-        card.href = href;
-        card.innerHTML = `
-          <h4>${cat.strCategory}</h4>
-          <img src="${img}" alt="${cat.strCategory}" onerror="this.onerror=null;this.src='default.png';">
-        `;
-        catContainer.appendChild(card);
-      });
-    } catch (err) {
-      catContainer.innerHTML = '<p>Failed to load categories.</p>';
+async function loadCategories() {
+  const catContainer = document.getElementById("category-cards");
+  if (!catContainer) return;
+  catContainer.innerHTML = '<p>Loading categories...</p>';
+  try {
+    const res = await fetch('https://www.themealdb.com/api/json/v1/1/categories.php');
+    const data = await res.json();
+    catContainer.innerHTML = '';
+    let categories = (data.categories || []).filter(cat => cat.strCategory.toLowerCase() !== 'pork');
+    const order = ['breakfast', 'beef', 'chicken', 'seafood', 'pasta'];
+    let ordered = [];
+    order.forEach(name => {
+      const found = categories.find(cat => cat.strCategory.toLowerCase() === name);
+      if (found) ordered.push(found);
+    });
+    const egyptianCard = {
+      strCategory: 'Egyptian Meals',
+      strCategoryThumb: 'Egyptian.png',
+      isArea: true
+    };
+    const seafoodIdx = ordered.findIndex(cat => cat.strCategory.toLowerCase() === 'seafood');
+    if (seafoodIdx !== -1) {
+      ordered.splice(seafoodIdx + 1, 0, egyptianCard);
+    } else {
+      ordered.push(egyptianCard);
     }
+    // Add Pasta if not already in order
+    if (!ordered.find(cat => cat.strCategory.toLowerCase() === 'pasta')) {
+      const pasta = categories.find(cat => cat.strCategory.toLowerCase() === 'pasta');
+      if (pasta) ordered.push(pasta);
+    }
+    const added = new Set(ordered.map(cat => cat.strCategory));
+    categories.forEach(cat => {
+      if (!added.has(cat.strCategory)) ordered.push(cat);
+    });
+    ordered.forEach(cat => {
+      let img;
+      switch (cat.strCategory.toLowerCase()) {
+        case 'breakfast': img = 'breakfast.png'; break;
+        case 'beef': img = 'beef.png'; break;
+        case 'chicken': img = 'chicken.png'; break;
+        case 'chocolate': img = 'chocolate.png'; break;
+        case 'dessert': img = 'dessert.png'; break;
+        case 'vegan': img = 'vegan.png'; break;
+        case 'egyptian meals': img = 'Egyptian.png'; break;
+        default: img = cat.strCategoryThumb; break;
+      }
+      let href = `category.html?c=${encodeURIComponent(cat.strCategory)}`;
+      if (cat.isArea) href = 'category.html?c=Egyptian Meals';
+      const card = document.createElement('a');
+      card.className = 'cat-card';
+      card.href = href;
+      card.innerHTML = `
+        <h4>${cat.strCategory}</h4>
+        <img src="${img}" alt="${cat.strCategory}" onerror="this.onerror=null;this.src='default.png';">
+      `;
+      catContainer.appendChild(card);
+    });
+  } catch (err) {
+    catContainer.innerHTML = '<p>Failed to load categories.</p>';
   }
-  loadCategories();
 }
 
 // Hamburger menu auto-close on mobile when a nav link is clicked
@@ -303,76 +298,17 @@ document.addEventListener('DOMContentLoaded', function() {
   const nav = document.querySelector('.navigation-row');
   if (nav) nav.classList.remove('active');
 
-  // If on home page
-  if (
-    window.location.pathname.endsWith("index.html") ||
-    window.location.pathname.endsWith("recipes-app/")
-  ) {
-    setupRandomRecipesHome();
+  // Robust homepage check
+  const path = window.location.pathname;
+  const isHomePage =
+    path === '/' ||
+    path.endsWith('/index.html') ||
+    path === '' ||
+    path.endsWith('/recipes-app/') ||
+    path.endsWith('index.html');
 
-    // Define and call loadCategories only here
-    async function loadCategories() {
-      const catContainer = document.getElementById("category-cards");
-      if (!catContainer) return;
-      catContainer.innerHTML = '<p>Loading categories...</p>';
-      try {
-        const res = await fetch('https://www.themealdb.com/api/json/v1/1/categories.php');
-        const data = await res.json();
-        catContainer.innerHTML = '';
-        let categories = (data.categories || []).filter(cat => cat.strCategory.toLowerCase() !== 'pork');
-        const order = ['breakfast', 'beef', 'chicken', 'seafood', 'pasta'];
-        let ordered = [];
-        order.forEach(name => {
-          const found = categories.find(cat => cat.strCategory.toLowerCase() === name);
-          if (found) ordered.push(found);
-        });
-        const egyptianCard = {
-          strCategory: 'Egyptian Meals',
-          strCategoryThumb: 'Egyptian.png',
-          isArea: true
-        };
-        const seafoodIdx = ordered.findIndex(cat => cat.strCategory.toLowerCase() === 'seafood');
-        if (seafoodIdx !== -1) {
-          ordered.splice(seafoodIdx + 1, 0, egyptianCard);
-        } else {
-          ordered.push(egyptianCard);
-        }
-        // Add Pasta if not already in order
-        if (!ordered.find(cat => cat.strCategory.toLowerCase() === 'pasta')) {
-          const pasta = categories.find(cat => cat.strCategory.toLowerCase() === 'pasta');
-          if (pasta) ordered.push(pasta);
-        }
-        const added = new Set(ordered.map(cat => cat.strCategory));
-        categories.forEach(cat => {
-          if (!added.has(cat.strCategory)) ordered.push(cat);
-        });
-        ordered.forEach(cat => {
-          let img;
-          switch (cat.strCategory.toLowerCase()) {
-            case 'breakfast': img = 'breakfast.png'; break;
-            case 'beef': img = 'beef.png'; break;
-            case 'chicken': img = 'chicken.png'; break;
-            case 'chocolate': img = 'chocolate.png'; break;
-            case 'dessert': img = 'dessert.png'; break;
-            case 'vegan': img = 'vegan.png'; break;
-            case 'egyptian meals': img = 'Egyptian.png'; break;
-            default: img = cat.strCategoryThumb; break;
-          }
-          let href = `category.html?c=${encodeURIComponent(cat.strCategory)}`;
-          if (cat.isArea) href = 'category.html?c=Egyptian Meals';
-          const card = document.createElement('a');
-          card.className = 'cat-card';
-          card.href = href;
-          card.innerHTML = `
-            <h4>${cat.strCategory}</h4>
-            <img src="${img}" alt="${cat.strCategory}" onerror="this.onerror=null;this.src='default.png';">
-          `;
-          catContainer.appendChild(card);
-        });
-      } catch (err) {
-        catContainer.innerHTML = '<p>Failed to load categories.</p>';
-      }
-    }
+  if (isHomePage) {
+    setupRandomRecipesHome();
     loadCategories();
   }
 });
@@ -548,3 +484,32 @@ if (window.location.pathname.endsWith('category.html')) {
   }
   loadCategoryRecipes();
 }
+
+function initHomeContent() {
+  // Only run on the homepage
+  const path = window.location.pathname;
+  const isHomePage =
+    path === '/' ||
+    path.endsWith('/index.html') ||
+    path === '' ||
+    path.endsWith('/recipes-app/') ||
+    path.endsWith('index.html');
+  if (!isHomePage) return;
+
+  const recipesList = document.getElementById('recipes-list');
+  const catCards = document.getElementById('category-cards');
+  if (!recipesList || !catCards) return;
+
+  setupRandomRecipesHome();
+  loadCategories();
+}
+
+// Run on initial load (DOM ready)
+if (document.readyState !== 'loading') {
+  initHomeContent();
+} else {
+  document.addEventListener('DOMContentLoaded', initHomeContent);
+}
+
+// Also run whenever page is shown (initial + back/forward navigation)
+window.addEventListener('pageshow', initHomeContent);
