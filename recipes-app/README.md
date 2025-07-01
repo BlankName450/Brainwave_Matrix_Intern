@@ -10,16 +10,6 @@ A modern, responsive web app for discovering and exploring delicious recipes fro
 
 ---
 
-## 📸 Screenshots
-
-### 🔹 Home Page  
-![Home Page](./hero.png)
-
-### 🔹 Category View  
-![Category View](./category.html)
-
----
-
 ## ✨ Features
 
 - 🔀 **Random Recipes:** Discover new meals every time you refresh.
