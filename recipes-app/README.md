@@ -97,3 +97,86 @@ This project is licensed under the [MIT License](./LICENSE).
 ---
 
 > 🍳 **Enjoy cooking something new today — explore, learn, and eat well!**
+# Recipes App
+
+A modern, responsive web application for discovering and exploring recipes from around the world. Built with vanilla JavaScript, HTML, and CSS, the app fetches dynamic recipe data from [TheMealDB API](https://www.themealdb.com/api.php) and provides a beautiful, user-friendly interface.
+
+---
+
+## Features
+
+- **Dynamic Recipes:** Fetch random recipes, browse by category, and explore Egyptian meals using TheMealDB API.
+- **Category Navigation:** Easily browse recipes by category or area.
+- **Search with Autocomplete:** Google-style search bar with live suggestions.
+- **Responsive Design:** Optimized for both desktop and mobile devices.
+- **Dark Mode:** Toggle between light and dark themes.
+- **Modern Navigation:** Sticky navigation bar and hamburger menu for mobile support.
+- **Smooth Animations:** Loading spinners, fade-in effects, and back-to-top button for enhanced UX.
+- **Custom Category Images:** Local images for select categories.
+
+---
+
+## Screenshots
+
+> _Add screenshots of your app below. Example:_
+
+![Home Page](./hero.png)
+![Category View](./category.html)
+
+---
+
+## Getting Started
+
+### Prerequisites
+- A modern web browser (Chrome, Firefox, Edge, Safari, etc.)
+
+### Setup
+1. **Clone the repository:**
+   ```sh
+   git clone https://github.com/BlankName450/Brainwave_Matrix_Intern.git
+   cd Brainwave_Matrix_Intern/task-1/recipes-app
+   ```
+2. **Open `index.html` in your browser.**
+   - No build step or server required.
+
+---
+
+## Usage
+- Browse recipes by category or area.
+- Use the search bar to find recipes by name or ingredient.
+- Click on a recipe to view details, ingredients, and instructions.
+- Toggle dark mode for a different look.
+
+---
+
+## Technologies Used
+- HTML5 & CSS3
+- Vanilla JavaScript (ES6+)
+- [TheMealDB API](https://www.themealdb.com/api.php)
+
+---
+
+## Troubleshooting
+- **Case Sensitivity:**
+  - Ensure all image filenames in your code match the actual files exactly (e.g., `beef.png` not `Beef.png`).
+- **API Issues:**
+  - All API calls use `https://` to avoid mixed content errors.
+  - If categories or recipes do not load, check the browser console for errors (CORS, 404, etc.).
+- **Local vs. Production:**
+  - If something works locally but not in production, check for case mismatches or missing files.
+
+---
+
+## Credits
+- Recipe data provided by [TheMealDB API](https://www.themealdb.com/api.php).
+- UI/UX and code: [Your Name or GitHub Username]
+
+---
+
+## License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+---
+
+Enjoy exploring and cooking new recipes! 

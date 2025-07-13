@@ -526,4 +526,8 @@ if (document.readyState !== 'loading') {
 }
 
 // Also run whenever page is shown (initial + back/forward navigation)
+<<<<<<< HEAD
 window.addEventListener('pageshow', initHomeContent);
+=======
+window.addEventListener('pageshow', initHomeContent);
+>>>>>>> cefa594 (Add E-commerce app with full features and documentation)
