@@ -2,6 +2,7 @@
 
 A modern, fully responsive e-commerce web application built with vanilla JavaScript, HTML, and CSS. This project simulates a real online shopping experience, including product browsing, advanced filtering, cart, wishlist, user authentication, reviews, and an admin panel for product management. All data is managed client-side for demo purposes.
 
+# Demo: https://ecommerce-brainwave-matrix-intern.vercel.app/
 ---
 
 ## ✨ Features
